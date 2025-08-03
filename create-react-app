@@ -1,0 +1,7 @@
+LasVegas-bachelorette/
+├── public/
+├── src/
+│   ├── App.js (or App.jsx)
+│   └── VegasBacheloretteSite.jsx
+├── package.json
+└── ...
