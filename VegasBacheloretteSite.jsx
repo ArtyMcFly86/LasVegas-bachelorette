@@ -1,8 +1,4 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Progress } from "@/components/ui/progress";
 
 const hotelOptions = [
   {
@@ -13,7 +9,7 @@ const hotelOptions = [
     price: "$150–$250/room",
     pros: "Modern, central, walkable to nightlife",
     cons: "Smaller rooms, no luxury feel",
-    link: "https://www.caesars.com/linq"
+    link: "https://www.caesars.com/linq",
   },
   {
     name: "The Venetian",
@@ -23,7 +19,7 @@ const hotelOptions = [
     price: "$400–$550/suite",
     pros: "Huge suites, upscale, good for 4 per room",
     cons: "Long walks to Strip entrance",
-    link: "https://www.venetianlasvegas.com"
+    link: "https://www.venetianlasvegas.com",
   },
   {
     name: "The Cosmopolitan",
@@ -33,8 +29,8 @@ const hotelOptions = [
     price: "$450–$1500/room",
     pros: "Iconic views, amazing location, balconies",
     cons: "Pricey",
-    link: "https://www.cosmopolitanlasvegas.com"
-  }
+    link: "https://www.cosmopolitanlasvegas.com",
+  },
 ];
 
 export default function VegasBacheloretteSite() {
@@ -46,38 +42,83 @@ export default function VegasBacheloretteSite() {
     setVotes(newVotes);
   };
 
-  const totalVotes = votes.reduce((acc, val) => acc + val, 0);
+  const totalVotes = votes.reduce((sum, val) => sum + val, 0);
 
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold text-center">Vegas Bachelorette 2025</h1>
-      <p className="text-center text-lg text-gray-600">
-        Explore the top hotel picks and vote for your favorite!
+    <div style={{ padding: "2rem", fontFamily: "sans-serif", maxWidth: "1200px", margin: "0 auto" }}>
+      <h1 style={{ textAlign: "center", fontSize: "2rem", fontWeight: "bold" }}>
+        Vegas Bachelorette 2025
+      </h1>
+      <p style={{ textAlign: "center", color: "gray", marginBottom: "2rem" }}>
+        Explore hotel picks and vote for your favorite!
       </p>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", justifyContent: "center" }}>
         {hotelOptions.map((hotel, index) => (
-          <Card key={hotel.name}>
-            <img src={hotel.image} alt={hotel.name} className="w-full h-48 object-cover rounded-t-2xl" />
-            <CardContent className="p-4 space-y-2">
-              <h2 className="text-xl font-semibold">{hotel.name}</h2>
-              <p className="text-sm text-gray-500">{hotel.tier} - {hotel.price}</p>
-              <p><strong>Room Type:</strong> {hotel.room}</p>
+          <div
+            key={hotel.name}
+            style={{
+              width: "300px",
+              border: "1px solid #ddd",
+              borderRadius: "12px",
+              overflow: "hidden",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+              backgroundColor: "white",
+            }}
+          >
+            <img src={hotel.image} alt={hotel.name} style={{ width: "100%", height: "180px", objectFit: "cover" }} />
+            <div style={{ padding: "1rem" }}>
+              <h2 style={{ fontSize: "1.25rem", fontWeight: "bold" }}>{hotel.name}</h2>
+              <p style={{ color: "gray" }}>
+                {hotel.tier} – {hotel.price}
+              </p>
+              <p><strong>Room:</strong> {hotel.room}</p>
               <p><strong>Pros:</strong> {hotel.pros}</p>
               <p><strong>Cons:</strong> {hotel.cons}</p>
-              <a href={hotel.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+              <a href={hotel.link} target="_blank" rel="noopener noreferrer" style={{ color: "blue", display: "block", marginTop: "0.5rem" }}>
                 Booking Info
               </a>
-              <div className="pt-4">
-                <Button onClick={() => handleVote(index)}>Vote for {hotel.name}</Button>
-                <Progress value={totalVotes ? (votes[index] / totalVotes) * 100 : 0} className="mt-2" />
-                <p className="text-sm text-gray-600">Votes: {votes[index]}</p>
+              <div style={{ marginTop: "1rem" }}>
+                <button
+                  onClick={() => handleVote(index)}
+                  style={{
+                    background: "#6200ea",
+                    color: "white",
+                    border: "none",
+                    padding: "0.5rem 1rem",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    width: "100%",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Vote for {hotel.name}
+                </button>
+                <div style={{ marginTop: "0.5rem" }}>
+                  <div
+                    style={{
+                      height: "10px",
+                      background: "#ddd",
+                      borderRadius: "5px",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: `${totalVotes ? (votes[index] / totalVotes) * 100 : 0}%`,
+                        height: "100%",
+                        background: "#6200ea",
+                        transition: "width 0.3s ease",
+                      }}
+                    ></div>
+                  </div>
+                  <p style={{ fontSize: "0.85rem", color: "gray" }}>Votes: {votes[index]}</p>
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         ))}
       </div>
     </div>
   );
-}"`
 }
